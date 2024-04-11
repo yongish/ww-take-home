@@ -5,7 +5,7 @@ This function `findWords` takes an input string and a dictionary of words. It re
 
 ## High-level Approach
 1. Create a map of the input letters with their counts to keep track of available letters.
-2. Create a set to keep track of added words.
+2. Create an array to keep track of added words.
 3. Iterate through each word in the dictionary.
 4. Check for duplicate. If the word has already been added to the result, skip to the next word.
 5. For each word, create a copy of the input letters map.

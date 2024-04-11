@@ -9,40 +9,41 @@ function findWords(inputString: string, dictionary: string[]): string[] {
 
   // Create a map of input letters with their counts
   for (const letter of inputString) {
-      if (inputLettersMap.hasOwnProperty(letter)) {
-          inputLettersMap[letter]++;
-      } else {
-          inputLettersMap[letter] = 1;
-      }
+    if (inputLettersMap.hasOwnProperty(letter)) {
+      inputLettersMap[letter]++;
+    } else {
+      inputLettersMap[letter] = 1;
+    }
   }
 
-  const addedWords = new Set<string>(); // Set to keep track of added words
+  const addedWords: string[] = [];
 
-  // Iterate through each word in the dictionary
   for (const word of dictionary) {
-      // Check if the word is already in the addedWords set
-      if (addedWords.has(word)) continue;
+    // Check if the word is already in the addedWords array
+    if (addedWords.includes(word)) continue;
 
-      const wordLettersMap: { [letter: string]: number } = { ...inputLettersMap };
+    const wordLettersMap: { [letter: string]: number } = { ...inputLettersMap };
 
-      // Check if the word can be formed from the input letters
-      let validWord = true;
-      for (const letter of word) {
-          if (!wordLettersMap.hasOwnProperty(letter) || wordLettersMap[letter] === 0) {
-              validWord = false;
-              break;
-          } else {
-              wordLettersMap[letter]--;
-          }
+    // Check if the word can be formed from the input letters
+    let validWord = true;
+    for (const letter of word) {
+      if (
+        !wordLettersMap.hasOwnProperty(letter) ||
+        wordLettersMap[letter] === 0
+      ) {
+        validWord = false;
+        break;
+      } else {
+        wordLettersMap[letter]--;
       }
+    }
 
-      if (validWord) {
-          addedWords.add(word); // Add word to the set
-      }
+    if (validWord) {
+      addedWords.push(word); // Add word to the array
+    }
   }
 
-  // Convert the Set to an array before returning
-  return Array.from(addedWords);
+  return addedWords;
 }
 
 export default findWords;
